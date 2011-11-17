@@ -3,9 +3,6 @@ import java.io.File
 import scala.sys.process._
 import scala.collection.mutable.ArrayBuffer
 
-case class FileCount(total: Int, important: Int, errors: Seq[String])
-
-
 
 
 trait Folder {

@@ -30,6 +30,7 @@ class RunIntegrationSpecification extends Specification {
         rmPaths()
         import scala.sys.process._
         new File(testInput).mkdirs()
+        new File("testData/testSavedRun").mkdirs()
         new File(tarFile).mkdirs()
         stringToProcess("cp -r "+inDir+" "+testInput) ! //because of gzipping
 
@@ -89,7 +90,7 @@ class RunIntegrationSpecification extends Specification {
         
      
 	  step { 
-	//    rmPaths()
+	    rmPaths()
 	    success
 	  }    
       
