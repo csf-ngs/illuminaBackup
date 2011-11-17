@@ -4,6 +4,11 @@ import scala.sys.process._
 import scala.collection.mutable.ArrayBuffer
 import java.text.SimpleDateFormat
 import java.util.Date
+import org.slf4j.LoggerFactory
+
+
+
+
 
 /**
  * 
@@ -11,6 +16,10 @@ import java.util.Date
  * 
  **/
 class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
+  private val log = LoggerFactory.getLogger(getClass)
+  
+  log.info("backing up: "+folderPath+" to: "+outCopyBase+" tar: "+outTarBase)
+  
   val osxMD5 = """MD5.*=\s*(\w*)""".r
   val linuxMD5 = """(\w*)\s*\w*""".r
   val rs = "rsync.files.txt"
@@ -36,6 +45,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   def save(): Boolean = createRsyncFile && fillRsyncFile && rsync && tar
    
   def createRsyncFile(): Boolean = {
+      log.info("creating rsync file: "+rsyncFile)
       val rsync = new File(rsyncFile)
       if(rsync.exists){
         rsync.delete()         
@@ -44,23 +54,28 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   }
   
   def fillRsyncFile(): Boolean = {
+      log.info("collecting files ")
       folders.map(_.fillRsyncFile(rsyncFile, folderPath)).forall(_ == true)
   }
   
   def rsync(): Boolean = {
+      log.info("rsyncing ")
       import scala.sys.process._  
       val cmd = "rsync --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outCopyBase 
     
       val success = cmd !
-      
+     
+      log.info("done rsyncing exit status"+success)
       success == 0
   }  
  
   def tar(): Boolean = {
+      log.info("taring ")
       (1 to 8).map(laneNr => tarResults(laneNr)).forall(_ != false)
   }
   
   def tarResults(laneNr: Int): Boolean = {
+      log.info("taring lane "+laneNr)
       val out = outTarLane(laneNr)
       val created = "tar --create --file="+out+""" --files-from=/dev/null""" ! //is this really necessary? I forgot maybe it inits a tar file
       
