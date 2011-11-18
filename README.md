@@ -4,8 +4,11 @@ illuminabackup
 copies selected files and folders into destination directory using rsync.
 tars selected files and folders into lane specific tar files.
 
-Its basically a simple filter for rsync with many tests ensuring that exactly the intended
+a file called excludeBackup in any of the folders excludes the folder + its subfolder from being backed up.
+
+Its a simple filter for rsync with many tests ensuring that only the intended
 files get copied + checksummed.
+
 
 * usage:
    git clone
@@ -18,11 +21,11 @@ the tar file unfortunately begins one level to low. When untaring the user must 
 in a newly created folder.
 
 * todo:
-nothing
+??
 
 
 * technology:
-scala, sbt, rsync, tar, jcommander
+scala, sbt, rsync, tar, jcommander, slf4j
 
 
 

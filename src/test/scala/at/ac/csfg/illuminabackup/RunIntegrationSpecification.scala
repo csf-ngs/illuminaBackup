@@ -61,7 +61,7 @@ class RunIntegrationSpecification extends Specification {
           "copied files set to read only" in {
              val permissions = getPermission(outPath+"/"+dir)
              for(p <- permissions){
-                p must beOneOf( "drwxr-xr-x" , "-r--r--r--")
+                p must beOneOf( "dr-xr-xr-x" , "-r--r--r--")
              }
              permissions.size === 8
            }

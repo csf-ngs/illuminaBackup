@@ -63,7 +63,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   def rsync(): Boolean = {
       log.info("rsyncing ")
       import scala.sys.process._  
-      val cmd = "rsync --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outBaseFolder
+      val cmd = "rsync -a --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outBaseFolder
     
       val success = cmd !
      
