@@ -4,34 +4,45 @@ import java.io.File
 import com.beust.jcommander.{JCommander, Parameter}
 import collection.JavaConversions._
 import org.slf4j.LoggerFactory
+import com.beust.jcommander.JCommanderFactory
  
 object Main {
   private val log = LoggerFactory.getLogger(getClass)
   
   object Args {
     
-    @Parameter(names = Array("-r", "--runFolder"), description = "runfolder path")
+    @Parameter(names = Array("-r", "--runFolder"), description = "runfolder path", required=true)
     var runFolderPath: String = ""
     
-    @Parameter(names = Array("-o", "--outCopyFolder"), description = "copy folder path")
+    @Parameter(names = Array("-o", "--outCopyFolder"), description = "copy folder path", required=true)
     var outCopyFolder: String = ""
     
-    @Parameter(names = Array("-t", "--outTarFolder"), description = "tar folder path")
+    @Parameter(names = Array("-t", "--outTarFolder"), description = "tar folder path", required=true)
     var outTarFolder: String = ""
 
   }
  
   def main(args: Array[String]): Unit = {
-    new JCommander(Args, args.toArray: _*)
-    val missing = checkFolders()
-    if(missing.size > 0){
-       val err = "missing folders: "+missing.mkString("\t")
-       log.error(err)
-       sys.error(err)
+    val jc = JCommanderFactory.createWithArgs(Args)
+    try{
+      jc.parse(args.toArray:_*)
+      val missing = checkFolders()
+      if(missing.size > 0){
+        val err = "missing folders: "+missing.mkString("\t")
+        log.error(err)
+        System.err.println(err)
+        sys.exit(1)
+      }
+      val run = new Run(Args.runFolderPath, Args.outCopyFolder, Args.outTarFolder)
+      val success = run.save()
+      val (successString,exitCode) = if(success) ("success", 0) else ("failed", 1)
+      log.info(Args.runFolderPath+" done backup "+successString)   
+      sys.exit(exitCode)
+    }catch{
+      case e: Exception => {
+         jc.usage()
+      }
     }
-    val run = new Run(Args.runFolderPath, Args.outCopyFolder, Args.outTarFolder)
-    val success = run.save()
-    log.info("done backup "+success)
     
   }
   

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory
 class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   private val log = LoggerFactory.getLogger(getClass)
   
-  log.info("backing up: "+folderPath+" to: "+outCopyBase+" tar: "+outTarBase)
+  log.info(folderPath+" backing up: "+folderPath+" to: "+outCopyBase+" tar: "+outTarBase)
   
   val osxMD5 = """MD5.*=\s*(\w*)""".r
   val linuxMD5 = """(\w*)\s*\w*""".r
@@ -45,7 +45,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   def save(): Boolean = createRsyncFile && fillRsyncFile && rsync && tar
    
   def createRsyncFile(): Boolean = {
-      log.info("creating rsync file: "+rsyncFile)
+      log.info(folderPath+" creating rsync file: "+rsyncFile)
       val rsync = new File(rsyncFile)
       if(rsync.exists){
         rsync.delete()         
@@ -54,7 +54,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   }
   
   def fillRsyncFile(): Boolean = {
-      log.info("collecting files ")
+      log.info(folderPath+" collecting files ")
       folders.map(_.fillRsyncFile(rsyncFile, folderPath)).forall(_ == true)
   }
   
@@ -65,7 +65,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
     
       val success = cmd !
      
-      log.info("done rsyncing exit status"+success)
+      log.info(folderPath+" done rsyncing exit status "+success)
       success == 0
   }  
  
