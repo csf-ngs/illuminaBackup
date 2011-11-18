@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory
 class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   private val log = LoggerFactory.getLogger(getClass)
   
-  log.info(folderPath+" backing up: "+folderPath+" to: "+outCopyBase+" tar: "+outTarBase)
+  val outBaseFolder = new File(outCopyBase).getAbsoluteFile()+"/"+new File(folderPath).getAbsoluteFile().getName
+  
+  log.info(folderPath+" backing up: "+folderPath+" to: "+outBaseFolder+" tar: "+outTarBase)
   
   val osxMD5 = """MD5.*=\s*(\w*)""".r
   val linuxMD5 = """(\w*)\s*\w*""".r
@@ -61,7 +63,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   def rsync(): Boolean = {
       log.info("rsyncing ")
       import scala.sys.process._  
-      val cmd = "rsync --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outCopyBase 
+      val cmd = "rsync --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outBaseFolder
     
       val success = cmd !
      
