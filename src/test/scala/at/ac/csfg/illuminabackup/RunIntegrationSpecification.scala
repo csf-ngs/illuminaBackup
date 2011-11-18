@@ -38,6 +38,9 @@ class RunIntegrationSpecification extends Specification {
 	  }
   
       "A Run" should {
+          "have an empty target dest for the tests" in {
+             new File("testData/testSavedRun/"+dir).exists === false
+          }
           "create the empty rsync file" in {
              val rs = new File(run.rsyncFile)
              rs.exists() === false             
@@ -45,11 +48,11 @@ class RunIntegrationSpecification extends Specification {
              created === true
              rs.exists() === true
           }
-          "filled the rsync file" in {
+          "fille the rsync file" in {
             val filled = run.fillRsyncFile()            
             filled === true
           }
-          "have copied everything requested" in {
+          "copy everything requested" in {
              val rsynced = run.rsync() 
              rsynced === true
              
@@ -58,7 +61,7 @@ class RunIntegrationSpecification extends Specification {
              
              file2String("testData/testOutput.expected.txt") === file2String(actual)
           }
-          "copied files set to read only" in {
+          "set copied files to read only" in {
              val permissions = getPermission(outPath+"/"+dir)
              for(p <- permissions){
                 p must beOneOf( "dr-xr-xr-x" , "-r--r--r--")
@@ -89,6 +92,7 @@ class RunIntegrationSpecification extends Specification {
         
      
 	  step { 
+	    chmod()
 	    rmPaths()
 	    success
 	  }    
@@ -115,6 +119,11 @@ class RunIntegrationSpecification extends Specification {
              list ::= str
          })
          list
+      }
+      
+      def chmod(){
+         import scala.sys.process._
+         stringToProcess("chmod -R a+rwx testData/testSavedRun/"+dir) !
       }
      
       def rmPath(path: String) {
