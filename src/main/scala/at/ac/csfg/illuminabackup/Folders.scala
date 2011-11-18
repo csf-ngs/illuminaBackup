@@ -29,8 +29,7 @@ trait Folder {
   def gzipNames: Seq[String] = Nil 
   
   /**
-   * condition for copying the files
-   * e.g. file tokens like .includeBackup or .excludeBackup
+   * condition for copying the files  excludeBackup is token to exclude folder from backup
    * subdirs will also not be copied
    * 
    * default: true
@@ -146,7 +145,7 @@ trait Folder {
   
   def checkFile(file: File, subFolder: String): Option[File] = {
       val newDir = new File(file.getAbsolutePath()+"/"+subFolder)
-      if(newDir.exists && newDir.isDirectory()) Some(newDir) else None
+      if(! excludeBackupSet && newDir.exists && newDir.isDirectory()) Some(newDir) else None
   }
   
 }

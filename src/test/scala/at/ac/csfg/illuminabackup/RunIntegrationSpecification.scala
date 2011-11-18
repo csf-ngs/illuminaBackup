@@ -68,25 +68,23 @@ class RunIntegrationSpecification extends Specification {
            "create a tar file for each lane" in {
               val outNames = (1 to 8).map(run.outTarLane(_))
               val tarred = run.tar()
+              
+              checkTars(0, 1, 3)
+              checkTars(1, 13, 3)
+              checkTars(2, 1, 3)
+              checkTars(3, 1, 3)
+              checkTars(4, 1, 3)
+              checkTars(5, 1, 3)
+              checkTars(6, 1, 3)
+              checkTars(7, 19, 3)
+                            
+              def checkTars(laneNr: Int, expectedBam: Int, expectedSequence: Int){
+                 val content = listTars(outNames(laneNr))
+                 content.filter(_.endsWith("sequence.txt.gz")).size === expectedSequence
+                 content.filter(_.endsWith("bam")).size === expectedBam
+              }
               tarred === true
-              //must also test for lanes not being in the tar files! TODO
-              listTars(outNames(0)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(0)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(1)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(1)).filter(_.endsWith("bam")).size === 13 
-              listTars(outNames(2)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(2)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(3)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(3)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(4)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(4)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(5)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(5)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(6)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(6)).filter(_.endsWith("bam")).size === 1
-              listTars(outNames(7)).filter(_.endsWith("sequence.txt.gz")).size === 3
-              listTars(outNames(7)).filter(_.endsWith("bam")).size === 19
-           }          
+           } 
       }
         
      
@@ -133,4 +131,7 @@ class RunIntegrationSpecification extends Specification {
       def file2String(fileName: String) = scala.io.Source.fromFile(fileName).getLines.filter(! _.endsWith(".DS_Store")).toSeq //shitty OSX
       
 
+      
+      
+      
 }

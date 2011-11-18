@@ -7,7 +7,7 @@
     <file>illuminaBackup.log</file>
   </appender>
 
-  <root level="error">
+  <root level="info">
     <appender-ref ref="FILE" />
   </root>
 </configuration>

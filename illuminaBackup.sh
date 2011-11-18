@@ -8,5 +8,5 @@
 
 #script calling illuminaBackup.jar for backing up illumina runs
 
-java -Xmx5000m -Xms5000m -jar /projects/solexadst/bin/funcGen/illuminaBackup.jar "$@"
+java -Xmx2000m -Xms2000m -jar /projects/solexadst/bin/funcGen/illuminaBackup.jar "$@"
 
