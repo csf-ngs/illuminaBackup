@@ -35,7 +35,7 @@ object Main {
       }
       val run = new Run(Args.runFolderPath, Args.outCopyFolder, Args.outTarFolder)
       val success = run.save()
-      val (successString,exitCode) = if(success) ("success", 0) else ("failed", 1)
+      val (successString, exitCode) = if(success) ("success", 0) else ("failed", 1)
       if(!success){
          System.err.println("failed backup "+Args.runFolderPath)
       }

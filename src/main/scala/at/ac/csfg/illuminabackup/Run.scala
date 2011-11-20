@@ -20,8 +20,8 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   
   val outBaseFolder = new File(outCopyBase).getAbsoluteFile()+"/"+new File(folderPath).getAbsoluteFile().getName
   
-  log.info(folderPath+" backing up: "+folderPath+" to: "+outBaseFolder+" tar: "+outTarBase)
-  
+  logInfo("backing up to: "+outBaseFolder+" tar: "+outTarBase)
+   
   val osxMD5 = """MD5.*=\s*(\w*)""".r
   val linuxMD5 = """(\w*)\s*\w*""".r
   val rs = "rsync.files.txt"
@@ -34,6 +34,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   
   val rsyncFile = new File(folderPath).getAbsolutePath+"/"+rs
   val logFile = new File(folderPath).getAbsolutePath+"/"+rs+".log"
+  val backuppedFile = new File(folderPath).getAbsolutePath+"/backupped"
   
   def outTarLane(laneNr: Int) = new File(outTarBase).getAbsolutePath+"/"+tarFileBase+"_"+laneNr+".tar"
   
@@ -44,10 +45,10 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   /**
    * this is the method to call
    */
-  def save(): Boolean = createRsyncFile && fillRsyncFile && rsync && tar
+  def save(): Boolean = createRsyncFile && fillRsyncFile && rsync && tar && setBackuppedTag
    
   def createRsyncFile(): Boolean = {
-      log.info(folderPath+" creating rsync file: "+rsyncFile)
+      logInfo(folderPath+" creating rsync file: "+rsyncFile)
       val rsync = new File(rsyncFile)
       if(rsync.exists){
         rsync.delete()         
@@ -56,12 +57,12 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   }
   
   def fillRsyncFile(): Boolean = {
-      log.info(folderPath+" collecting files ")
+      logInfo(folderPath+" collecting files ")
       folders.map(_.fillRsyncFile(rsyncFile, folderPath)).forall(_ == true)
   }
   
   def rsync(): Boolean = {
-      log.info("rsyncing ")
+      logInfo("rsyncing ")
       import scala.sys.process._  
       val cmd = "rsync -a --chmod=Dugo=rx,Fugo=r --files-from="+rsyncFile+" --from0 --log-file="+logFile+" "+folderPath+" "+outBaseFolder
     
@@ -72,7 +73,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
   }  
  
   def tar(): Boolean = {
-      log.info("taring ")
+      logInfo("taring ")
       (1 to 8).map(laneNr => tarResults(laneNr)).forall(_ != false)
   }
   
@@ -84,7 +85,11 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
       folders.map(_.toTarFile(out, laneNr, folderPath)).forall(_ == true)
   }
   
-
+  def setBackuppedTag(): Boolean = {
+      logInfo("setting backupped tag")
+      val f = new File(backuppedFile)
+      f.createNewFile()
+  }
   
   /**
    * returns all subfolders filtered on doCopy
@@ -99,6 +104,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
      Seq(runFolder) ++ data ++ intensities ++ basecalls ++ results ++ demux
   }
 
+  def logInfo(infoMessage: String) = log.info(folderPath+"\t"+infoMessage)
   
 }
 

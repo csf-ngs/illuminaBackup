@@ -48,11 +48,11 @@ class RunIntegrationSpecification extends Specification {
              created === true
              rs.exists() === true
           }
-          "fille the rsync file" in {
+          "fill the rsync file based on the find patterns of the folders" in {
             val filled = run.fillRsyncFile()            
             filled === true
           }
-          "copy everything requested" in {
+          "copy everything requested using rsync" in {
              val rsynced = run.rsync() 
              rsynced === true
              
@@ -61,7 +61,7 @@ class RunIntegrationSpecification extends Specification {
              
              file2String("testData/testOutput.expected.txt") === file2String(actual)
           }
-          "set copied files to read only" in {
+          "set copied files and folders to read only" in {
              val permissions = getPermission(outPath+"/"+dir)
              for(p <- permissions){
                 p must beOneOf( "dr-xr-xr-x" , "-r--r--r--")
@@ -87,7 +87,12 @@ class RunIntegrationSpecification extends Specification {
                  content.filter(_.endsWith("bam")).size === expectedBam
               }
               tarred === true
-           } 
+           }
+           "create a 'backupped' file in the RunFolder root when backup is complete" in {
+              new File(run.backuppedFile).exists() === false
+              run.setBackuppedTag()
+              new File(run.backuppedFile).exists() === true
+           }
       }
         
      
