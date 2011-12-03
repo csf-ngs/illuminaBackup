@@ -91,12 +91,6 @@ trait Folder {
   }   
   
   /**
-   * return list of files.md5
-   * usefull only for ResultsFolder
-   */
-  def md5(): Seq[String] = Nil
-  
-  /**
    * add files to tar
    * default all in folder
    * resultsfolder and below then split by lane
@@ -235,8 +229,6 @@ trait ResultFolder extends Folder {
      demuxDirs.map(f => new Demux(f))
    }
    
-   override def md5 = path.listFiles.filter{ f => f.getName.endsWith(".md5") }.map(_.getAbsolutePath())
-
    override def includeNames = Seq("*")
    
    override def doCopy = !excludeBackupSet
