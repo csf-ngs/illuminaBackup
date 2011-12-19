@@ -20,6 +20,9 @@ object Main {
     @Parameter(names = Array("-t", "--outTarFolder"), description = "tar folder path", required=true)
     var outTarFolder: String = ""
 
+    @Parameter(names = Array("-i", "--ignoreDemuxFolder"), description = "ignore demux folders by default", required=false)
+    var ignoreDemux: Boolean = true  
+      
   }
  
   def main(args: Array[String]): Unit = {
@@ -33,7 +36,7 @@ object Main {
         System.err.println(err)
         sys.exit(1)
       }
-      val run = new Run(Args.runFolderPath, Args.outCopyFolder, Args.outTarFolder)
+      val run = new Run(Args.runFolderPath, Args.outCopyFolder, Args.outTarFolder, Args.ignoreDemux)
       val success = run.save()
       val (successString, exitCode) = if(success) ("success", 0) else ("failed", 1)
       if(!success){

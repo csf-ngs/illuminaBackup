@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory
  * what to do on checksum error?
  * 
  **/
-class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
+class Run(folderPath: String, outCopyBase: String, outTarBase: String, ignoreDemux: Boolean) {
   private val log = LoggerFactory.getLogger(getClass)
   
   val outBaseFolder = new File(outCopyBase).getAbsoluteFile()+"/"+new File(folderPath).getAbsoluteFile().getName
@@ -101,7 +101,8 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String) {
      val basecalls = filter(intensities.map(_.subFolders).flatten)
      val results = filter(basecalls.map(_.subFolders).flatten)
      val demux = filter(results.map(_.subFolders).flatten)
-     Seq(runFolder) ++ data ++ intensities ++ basecalls ++ results ++ demux
+     val demuxYes = if(ignoreDemux) Nil else demux
+     Seq(runFolder) ++ data ++ intensities ++ basecalls ++ results ++ demuxYes
   }
 
   def logInfo(infoMessage: String) = log.info(folderPath+"\t"+infoMessage)

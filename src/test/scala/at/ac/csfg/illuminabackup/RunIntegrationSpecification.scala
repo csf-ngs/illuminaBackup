@@ -22,7 +22,7 @@ class RunIntegrationSpecification extends Specification {
       val tarFile = "testData/tarfiles"
       val jul = new GregorianCalendar(1789,Calendar.JULY,14).getTime
       var checkSumFailures = Seq[String]()
-      val run = new Run(testInputDir, outPath, tarFile){
+      val run = new Run(testInputDir, outPath, tarFile, false){
            override def date = jul
       } 
       
