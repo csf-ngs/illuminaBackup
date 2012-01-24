@@ -44,7 +44,7 @@ object Main {
       }
       log.info(Args.runFolderPath+" done backup "+successString)   
       sys.exit(exitCode)
-    }catch{
+    } catch {
       case e: Exception => {
          jc.usage()
       }

@@ -154,7 +154,8 @@ case class RunFolder(path: File) extends Folder { //RunFolder
   override def copySubDirs = Seq("Config")
   
   override def subFolders: Seq[Data] = checkFile(path, "Data").map(Data(_)).toList
-    
+  
+   
 }
 
 
@@ -168,6 +169,8 @@ case class Data(path: File) extends Folder {
   override def subFolders: Seq[Intensities] = checkFile(path, "Intensities").map(Intensities(_)).toList
   
   override def depth = 1
+  
+  override def subDirsDepth = 2
   
 }
 

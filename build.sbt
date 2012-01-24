@@ -25,8 +25,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "org.specs2" %% "specs2" % "1.6.1" % "test",
-    "org.specs2" %% "specs2-scalaz-core" % "6.0.1" % "test",
+    "org.specs2" %% "specs2" % "1.7.1" % "test",
     "org.mockito" % "mockito-all" % "1.8.5" % "test",
     "junit" % "junit" % "4.8" % "test",
     "org.pegdown" % "pegdown" % "1.0.2" % "test"
