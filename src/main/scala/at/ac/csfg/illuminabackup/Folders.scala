@@ -250,7 +250,7 @@ class Gerald(val path: File) extends ResultFolder {//Data/Intensities/Basecalls|
 
     override def copySubDirs = Seq("fastQC")
     
-    override def subDirsDepth = 2 //for fastQC
+    override def subDirsDepth = 3 //for fastQC
         
 }
 
@@ -258,7 +258,7 @@ class Illumina2Bam(val path: File) extends ResultFolder {//Data/Intensities/Base
       
     override def findTarFiles(laneNr: Int): String = "find "+findPath+" -maxdepth 1 "+"-name '*_"+laneNr+"_*.bam*'  -print0 "  
   
-    override def subDirsDepth = 2 //for QC    
+    override def subDirsDepth = 3 //for QC    
    
 }
 
@@ -268,7 +268,7 @@ class Demux(val path: File) extends ResultFolder {//Data/Intensities/Basecalls|B
         
     override def findTarFiles(laneNr: Int) = if(path.getName.endsWith(laneNr.toString)) "find "+findPath+" -maxdepth 1 -print0" else "find . -maxdepth 1 -name dontfindanything -print0 "
  
-    override def subDirsDepth = 2 //for QC  
+    override def subDirsDepth = 3 //for QC  
  
     override def depth = 5
 }
