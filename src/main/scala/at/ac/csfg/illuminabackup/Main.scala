@@ -40,7 +40,9 @@ object Main {
       val success = run.save()
       val (successString, exitCode) = if(success) ("success", 0) else ("failed", 1)
       if(!success){
-         System.err.println("failed backup "+Args.runFolderPath)
+         val err = "failed backup "+Args.runFolderPath
+         System.err.println(err)
+         log.error(err)
       }
       log.info(Args.runFolderPath+" done backup "+successString)   
       sys.exit(exitCode)

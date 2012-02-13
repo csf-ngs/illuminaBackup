@@ -68,7 +68,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String, ignoreDem
     
       val success = cmd !
      
-      log.info(folderPath+" done rsyncing exit status "+success)
+      logInfo("done rsyncing exit status "+success)
       success == 0
   }  
  
@@ -78,7 +78,7 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String, ignoreDem
   }
   
   def tarResults(laneNr: Int): Boolean = {
-      log.info("taring lane "+laneNr)
+      logInfo("taring lane "+laneNr)
       val out = outTarLane(laneNr)
       val created = "tar --create --file="+out+""" --files-from=/dev/null""" ! //is this really necessary? I forgot maybe it inits a tar file
       
