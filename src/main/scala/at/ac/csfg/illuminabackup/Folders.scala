@@ -141,7 +141,12 @@ trait Folder {
       val newDir = new File(file.getAbsolutePath()+"/"+subFolder)
       if(! excludeBackupSet && newDir.exists && newDir.isDirectory()) Some(newDir) else None
   }
-  
+ 
+  def listFiles(file: File): Seq[File] = {
+      val files = file.listFiles
+      if(files == null) Seq.empty else files.toSeq
+  }
+
 }
 
 
@@ -179,7 +184,7 @@ case class Intensities(path: File) extends Folder { //Data/Intensities
    override def includeNames = Seq("config.xml", "RTAConfiguration.xml")   
    
    override def subFolders: Seq[Basecalls] = {
-       val paths = path.listFiles.filter( f => f.getName.startsWith("BaseCalls") || f.getName.startsWith("Bustard") )
+       val paths = listFiles(path).filter( f => f.getName.startsWith("BaseCalls") || f.getName.startsWith("Bustard") )
        paths.map(p => new Basecalls(p))
    }
    
@@ -198,8 +203,8 @@ class Basecalls(val path: File) extends Folder { //Data/Intensities/Basecalls|Bu
    override def subFolders: Seq[Folder] = phasing ++ matrix ++ resultFolders
       
    def resultFolders: Seq[Folder] = {
-      val geralds = path.listFiles.filter { f => f.getName.startsWith("GERALD") }.map(f => new Gerald(f))      
-      val illumina2bams = path.listFiles.filter { f => f.getName.startsWith("illumina2bam") }.map(f => new Illumina2Bam(f))
+      val geralds = listFiles(path).filter { f => f.getName.startsWith("GERALD") }.map(f => new Gerald(f))      
+      val illumina2bams = listFiles(path).filter { f => f.getName.startsWith("illumina2bam") }.map(f => new Illumina2Bam(f))
       geralds ++ illumina2bams
    }
    
@@ -228,7 +233,7 @@ class BasecallsMatrix(val path: File) extends Folder {//Data/Intensities/Basecal
 trait ResultFolder extends Folder {
   
    override def subFolders: Seq[Demux] = {
-     val demuxDirs = path.listFiles.filter(f => f.isDirectory() && f.getName.startsWith("demux_adapter"))
+     val demuxDirs = listFiles(path).filter(f => f.isDirectory() && f.getName.startsWith("demux_adapter"))
      demuxDirs.map(f => new Demux(f))
    }
    
