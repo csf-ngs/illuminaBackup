@@ -16,7 +16,6 @@ libraryDependencies += "com.beust" % "jcommander" % "1.19"
 
 testOptions in Test += Tests.Argument("html", "console")
 
-git.remoteRepo := "git@github.com:csf-ngs/illuminaBackup.git"
 
 libraryDependencies ++= Seq(
     "org.slf4j" % "slf4j-api" % "1.6.2",   
