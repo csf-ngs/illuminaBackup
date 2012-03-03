@@ -8,6 +8,8 @@ A file called excludeBackup in any of the folders excludes the folder + its subf
 Its a simple filter for rsync with many integration tests ensuring that only the intended
 files get copied + checksummed.
 
+* ####build status:
+![Build Status](https://secure.travis-ci.org/idot/illuminaBackup.png)(http://travis-ci.org/idot/illuminaBackup)
 
 * ####usage:
 ```bash
