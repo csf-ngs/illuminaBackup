@@ -265,6 +265,9 @@ class Illumina2Bam(val path: File) extends ResultFolder {//Data/Intensities/Base
   
     override def subDirsDepth = 3 //for QC    
    
+    override def copySubDirs(): Seq[String] = listFiles(path).filter { f => f.getName.endsWith("fastqc") && f.isDirectory }.map(f => f.getName)
+    
+    
 }
 
 class Demux(val path: File) extends ResultFolder {//Data/Intensities/Basecalls|Bustard/illumina2bam demux_reads_1
