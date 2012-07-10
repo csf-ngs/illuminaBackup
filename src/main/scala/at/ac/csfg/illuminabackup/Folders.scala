@@ -158,9 +158,20 @@ case class RunFolder(path: File) extends Folder { //RunFolder
     
   override def copySubDirs = Seq("Config")
   
-  override def subFolders: Seq[Data] = checkFile(path, "Data").map(Data(_)).toList
+  override def subFolders: Seq[Folder] = data ++ logs
+    
+  def data = checkFile(path, "Data").map(Data(_)).toList
   
-   
+  def logs = checkFile(path, "Logs").map(Logs(_)).toList
+  
+}
+
+case class Logs(path: File) extends Folder {
+  
+  override def includeNames = Seq("CycleTimes.txt")
+ 
+  override def depth = 1
+  
 }
 
 
