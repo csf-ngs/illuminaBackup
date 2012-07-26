@@ -263,6 +263,10 @@ testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011.bam.md5
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011.pf.stats
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011.quality
+testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_csfstats
+testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_csfstats/62DFUAAXX_5_02-11-2011.blast.tab
+testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_csfstats/62DFUAAXX_5_02-11-2011.dupl.tab
+testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_csfstats/62DFUAAXX_5_02-11-2011.taxo.tab
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_fastqc
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_5_02-11-2011_fastqc.zip
 testData/testSavedRun/111014_ILLUMINA-96BC32_00042_FC62LYNAAXX/Data/Intensities/BaseCalls/illumina2bam0.03_02-11-2011/62DFUAAXX_6_02-11-2011.bam
