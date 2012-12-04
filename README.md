@@ -20,6 +20,8 @@ files get copied + checksummed.
 >java -jar target/illuminaBackup.jar -r /path/to/run -t /path/to/tar/folder -o /path/to/savedRuns
 ```
  
+-t no prevents taring
+
 * ####known bugs:
 the tar file unfortunately begins one level to low. When untaring the user must untar
 in a newly created folder.

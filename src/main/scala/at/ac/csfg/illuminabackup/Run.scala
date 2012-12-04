@@ -73,9 +73,14 @@ class Run(folderPath: String, outCopyBase: String, outTarBase: String, ignoreDem
   }  
  
   def tar(): Boolean = {
-      logInfo("taring ")
-      (1 to 8).map(laneNr => tarResults(laneNr)).forall(_ != false)
-  }
+      if(outTarBase.toLowerCase == "no"){
+        logInfo("not taring")
+        true
+      }else{
+        logInfo("taring ")
+        (1 to 8).map(laneNr => tarResults(laneNr)).forall(_ != false)
+      } 
+ }
   
   def tarResults(laneNr: Int): Boolean = {
       logInfo("taring lane "+laneNr)
