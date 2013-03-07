@@ -62,7 +62,7 @@ object Main {
       if(!new File(Args.outCopyFolder).exists){
         missingFiles ::= "outCopyFolder: "+Args.outCopyFolder
       }
-      if(!new File(Args.outTarFolder).exists){
+      if(Args.outTarFolder != "no" && !new File(Args.outTarFolder).exists){
         missingFiles ::= "outTarFolder: "+Args.outTarFolder
       }
       missingFiles
