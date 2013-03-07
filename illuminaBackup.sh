@@ -5,6 +5,7 @@
 #$ -q solexa.q
 #$ -q nonofficehours.q
 #$ -P pipeline
+#$ -l hostname=!gecko
 
 #script calling illuminaBackup.jar for backing up illumina runs
 #demux files are now not backed up
