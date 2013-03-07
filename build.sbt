@@ -1,14 +1,17 @@
 import AssemblyKeys._ 
 
+
+
 organization := "at.ac.csfg"
 
 name := "illuminaBackup"
 
 version := "0.5"
 
-scalaVersion := "2.9.1"
+scalaVersion := "2.10.0"
 
 seq(assemblySettings: _*)
+
 
 jarName in assembly := "illuminaBackup.jar"
 
@@ -24,8 +27,10 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-    "org.specs2" %% "specs2" % "1.7.1" % "test",
+    "org.specs2" %% "specs2" % "1.14" % "test",
     "org.mockito" % "mockito-all" % "1.8.5" % "test",
     "junit" % "junit" % "4.8" % "test",
     "org.pegdown" % "pegdown" % "1.0.2" % "test"
 )
+
+
