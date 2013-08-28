@@ -66,7 +66,7 @@ class RunIntegrationSpecification extends Specification {
              for(p <- permissions){
                 p must beOneOf( "dr-xr-xr-x" , "-r--r--r--")
              }
-             permissions.size === 10
+             permissions.size === 11
            }
            "create a tar file for each lane" in {
               val outNames = (1 to 8).map(run.outTarLane(_))
@@ -110,7 +110,7 @@ class RunIntegrationSpecification extends Specification {
               if(!str.contains("total")){
 	              str match {
 	                case PermissionPattern(p) => permissions ::= p
-	                case _ => ""
+	                case _ => 
 	              }
               }
           })
