@@ -154,7 +154,7 @@ case class RunFolder(path: File) extends Folder { //RunFolder
 
   override def gzipNames = Seq("RTA_*csv", "RunLog*xml", "Recipe*xml")
   
-  override def includeNames = Seq("RunInfo.xml", "*params") ++ gzipNames.map(_+".gz")
+  override def includeNames = Seq("RunInfo.xml", "runParameters.xml", "*params") ++ gzipNames.map(_+".gz")
     
   override def copySubDirs = Seq("Config", "InterOp", "illuminaPlot")
   
