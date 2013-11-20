@@ -66,7 +66,7 @@ class RunIntegrationSpecification extends Specification {
              for(p <- permissions){
                 p must beOneOf( "dr-xr-xr-x" , "-r--r--r--")
              }
-             permissions.size === 11
+             permissions.size === 12
            }
            "create a tar file for each lane" in {
               val outNames = (1 to 8).map(run.outTarLane(_))
