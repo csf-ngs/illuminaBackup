@@ -11,6 +11,7 @@ files get copied + checksummed.
 * ####build status:
 ![Build Status](https://secure.travis-ci.org/idot/illuminaBackup.png)(http://travis-ci.org/idot/illuminaBackup)
 
+
 * ####usage:
 ```bash
 >git clone git@github.com:csf-ngs/illuminaBackup.git 

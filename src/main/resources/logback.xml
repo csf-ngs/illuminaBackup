@@ -4,7 +4,7 @@
      <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
      </encoder>
-     <file>/groups/csf-ngs/tmp/log/illuminabackup.log</file>
+     <file>/groups/vbcf-ngs/tmp/log/illuminabackup.log</file>
   </appender>
 
   <root level="info">
